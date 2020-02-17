@@ -1,28 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div id="app">
+		<div>
+			<button @click="toggleOne">Toggle One</button>
+			<button @click="toggleTwo">Toggle Two</button>
+		</div>
+		<div>
+			<template v-if="showOne">
+				<One />
+			</template>
+			<template v-if="showTwo">
+				<Two />
+			</template>
+		</div>
+	</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import One from '@/components/One.vue'
+// import Two from '@/components/Two.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+	components: {
+		// One,
+		// Two
+		One: () => import('@/components/One.vue'),
+		Two: () => import('@/components/Two.vue')
+	},
+	data: () => ({
+		showOne: false,
+		showTwo: false,
+	}),
+	methods: {
+		toggleOne() {
+			this.showOne = !this.showOne
+		},
+		toggleTwo() {
+			this.showTwo = !this.showTwo
+		}
+	}
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
